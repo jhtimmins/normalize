@@ -18,6 +18,7 @@
   >>> ./setup.sh
   ```
   This will run the setup operations (for a Unix system) automatically. Optionally, you can run the commands in `setup.sh` manually.
+  
 4. Run the program as described in the `Quickstart` section.
 
 ### Notes
