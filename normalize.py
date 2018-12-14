@@ -19,7 +19,7 @@ def normalize(input_data):
 
 def extract(input_data):
     """Extract data from source and return as DataFrame"""
-    
+
     utf_8_data = input_data.decode("utf-8", "replace")
     utf_8_rows = utf_8_data.split('\n')
 
@@ -41,6 +41,7 @@ def extract(input_data):
         valid_rows.append(row)
 
     reassembled_data = '\n'.join(valid_rows)
+    
     return pd.read_csv(StringIO(reassembled_data), parse_dates=['TIMESTAMP'], encoding='utf-8')
 
 
@@ -64,6 +65,7 @@ def duration_to_seconds(duration):
     replace = '�'
     if replace in duration:
         sys.stderr.write("Warning: invalid duration: {}".format(duration))
+
         return 0
     pieces = duration.split(':')
     pieces.reverse()
@@ -74,6 +76,7 @@ def duration_to_seconds(duration):
       seconds += float(pieces[1]) * 60
     if len(pieces) > 2:
       seconds += float(pieces[2]) * 3600
+
     return seconds
 
 
