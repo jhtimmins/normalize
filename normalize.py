@@ -35,13 +35,12 @@ def extract(input_data):
         timestamp = pieces[0]
         replace = '�'
         if replace  in timestamp:
-            # log # WARNING:
             sys.stderr.write("Warning: invalid timestamp: {}".format(row))
             continue
         valid_rows.append(row)
 
     reassembled_data = '\n'.join(valid_rows)
-    
+
     return pd.read_csv(StringIO(reassembled_data), parse_dates=['TIMESTAMP'], encoding='utf-8')
 
 

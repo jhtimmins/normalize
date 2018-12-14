@@ -3,11 +3,8 @@
 ### Quickstart
 
 ```python
->>> python3 normalize.py [source] [dest]
+>>> python3 normalize.py << {input_file}
 ```
-
-* `source` - Path to a `.csv` file with input data.
-* `dest` (optional) - Path to `.csv` output file. Default is to return `.csv` data to the console as a string.
 
 ### Setup
 1. Clone repository (local machine must have Python3 and Pip3 installed).
