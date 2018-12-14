@@ -5,20 +5,22 @@ import sys
 from io import StringIO
 
 
-def normalize(source, dest=None):
+def normalize(input_data):
     """Normalize source data and return as string or optionally save to file."""
-    df = extract(source)
+
+    # df is the standard variable name for a DataFrame in Pandas.
+    df = extract(input_data)
     df = transform_zip(df)
     df = transform_timestamp(df)
     df = transform_duration(df)
-    load(df, dest)
+
+    return df.to_string()
 
 
-def extract(source):
+def extract(input_data):
     """Extract data from source and return as DataFrame"""
-    with open(source, "rb") as f:
-        # Replace non-Unicode values with Unicode Replacement Character.
-        utf_8_data = f.read().decode("utf-8", "replace")
+    
+    utf_8_data = input_data.decode("utf-8", "replace")
     utf_8_rows = utf_8_data.split('\n')
 
     # Capitalize column headers.
@@ -83,23 +85,7 @@ def transform_duration(df):
     return df
 
 
-def load(df, dest):
-    if dest:
-        df.to_csv(dest)
-        return
-    print(df.to_string())
-
-
 if __name__ == '__main__':
-    if len(sys.argv) < 2 or len(sys.argv) > 3:
-        print("Please include a source file and an optional destination filename.")
-        exit()
-
-    source = sys.argv[1]
-
-    if len(sys.argv) > 2:
-        dest = sys.argv[2]
-    else:
-        dest = None
-
-    normalize(source, dest)
+    input_data = sys.stdin.buffer.read()
+    normalized = normalize(input_data)
+    sys.stdout.write(normalized)
